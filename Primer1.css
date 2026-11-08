@@ -1,0 +1,346 @@
+.primer1-overlay,
+.primer1-overlay * {
+  box-sizing: border-box;
+}
+
+.primer1-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(125, 0, 12, 0.28), transparent 32rem),
+    rgba(5, 5, 5, 0.84);
+  backdrop-filter: blur(5px);
+  animation: primer1-overlay-in 300ms ease both;
+}
+
+.primer1-card-shell {
+  --x: 50;
+  --y: 50;
+  position: relative;
+  width: min(430px, 100%);
+  min-height: 520px;
+  padding: 1px;
+  border: 1px solid rgba(255, 30, 45, 0.35);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(255, 32, 48, 0.58), rgba(255, 32, 48, 0.03) 38%, rgba(255, 255, 255, 0.08));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.72), 0 0 48px rgba(170, 0, 18, 0.15);
+  transform: perspective(900px) rotateX(calc((50 - var(--y)) * 0.12deg)) rotateY(calc((var(--x) - 50) * 0.12deg));
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 400ms ease;
+  will-change: transform;
+}
+
+.primer1-card-shell::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at calc(var(--x) * 1%) calc(var(--y) * 1%), rgba(255, 48, 58, 0.42), transparent 34%);
+  content: '';
+  pointer-events: none;
+  transition: background 450ms ease;
+}
+
+.primer1-card-shell:hover {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.82), 0 0 54px rgba(214, 0, 25, 0.28);
+}
+
+.primer1-card-shell:hover::before {
+  background: radial-gradient(circle at calc(var(--x) * 1%) calc(var(--y) * 1%), rgba(255, 76, 83, 0.5), transparent 38%);
+}
+
+.primer1-card-shell.is-login {
+  border-color: rgba(255, 214, 58, 0.72);
+  background: linear-gradient(145deg, rgba(255, 196, 32, 0.55), rgba(255, 196, 32, 0.045) 40%, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.78), 0 0 32px rgba(255, 190, 24, 0.3), 0 0 92px rgba(255, 167, 0, 0.18);
+}
+
+.primer1-card-shell.is-login::before {
+  background: radial-gradient(circle at calc(var(--x) * 1%) calc(var(--y) * 1%), rgba(255, 231, 91, 0.52), transparent 36%);
+}
+
+.primer1-card-shell.is-login::after {
+  position: absolute;
+  z-index: 0;
+  inset: -72%;
+  background: repeating-conic-gradient(from -8deg at 50% 50%, transparent 0deg 18deg, rgba(255, 211, 51, 0.2) 19deg 21deg, transparent 21deg 44deg);
+  content: '';
+  filter: blur(3px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: primer1-warm-rays 18s linear infinite;
+}
+
+.primer1-card-shell.is-login:hover {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.84), 0 0 42px rgba(255, 202, 33, 0.46), 0 0 100px rgba(255, 165, 0, 0.24);
+}
+
+.primer1-card-shell.is-login:hover::before {
+  background: radial-gradient(circle at calc(var(--x) * 1%) calc(var(--y) * 1%), rgba(255, 240, 135, 0.72), transparent 40%);
+}
+
+.primer1-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 518px;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(34px, 8vw, 58px);
+  border-radius: 9px;
+  background: linear-gradient(145deg, rgba(38, 12, 15, 0.97), rgba(10, 10, 11, 0.98) 58%), #0b0b0d;
+  color: #fff;
+  transform: translateZ(34px);
+}
+
+.is-login .primer1-card {
+  background: linear-gradient(145deg, rgba(43, 35, 12, 0.98), rgba(10, 10, 11, 0.99) 62%), #0b0b0d;
+}
+
+.primer1-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  background: rgba(10, 10, 11, 0.58);
+  color: rgba(255, 255, 255, 0.76);
+  cursor: pointer;
+  font: 1.3rem/1 Arial, sans-serif;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+
+.primer1-close:hover,
+.primer1-close:focus-visible {
+  border-color: #e7c147;
+  background: rgba(231, 193, 71, 0.12);
+  color: #fff;
+}
+
+.primer1-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.primer1-logo {
+  margin: 0;
+  color: #e50914;
+  font: 900 0.9rem Arial, sans-serif;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 8px rgba(229, 9, 20, 0.55);
+}
+
+.is-login .primer1-logo {
+  color: #e7c147;
+  text-shadow: 0 0 12px rgba(231, 193, 71, 0.42);
+}
+
+.primer1-card-header span {
+  color: rgba(255, 255, 255, 0.38);
+  font: 700 0.56rem Arial, sans-serif;
+  letter-spacing: 0.12em;
+}
+
+.primer1-mode-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.52);
+  font: 0.7rem Arial, sans-serif;
+}
+
+.primer1-mode-switch button {
+  min-height: 36px;
+  padding: 0 13px;
+  border: 1px solid rgba(231, 193, 71, 0.68);
+  border-radius: 999px;
+  background: rgba(231, 193, 71, 0.07);
+  color: #e7c147;
+  cursor: pointer;
+  font: 600 0.64rem Arial, sans-serif;
+  white-space: nowrap;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+
+.primer1-mode-switch button:hover,
+.primer1-mode-switch button:focus-visible {
+  background: #e7c147;
+  color: #090909;
+  box-shadow: 0 8px 22px rgba(231, 193, 71, 0.2);
+}
+
+.primer1-welcome {
+  margin: -4px 0 13px;
+  color: #e7c147;
+  font: 2rem/1 'Brush Script MT', 'Segoe Script', cursive;
+  text-shadow: 0 0 18px rgba(231, 193, 71, 0.22);
+}
+
+.primer1-card h2 {
+  margin: 0 0 18px;
+  color: #fff;
+  font: 400 clamp(2.5rem, 9vw, 3rem)/0.95 Georgia, 'Times New Roman', serif;
+}
+
+.primer1-card h2::after {
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin-top: 20px;
+  background: #ed1c2e;
+  content: '';
+}
+
+.is-login .primer1-card h2::after {
+  background: #e7c147;
+  box-shadow: 0 0 12px rgba(231, 193, 71, 0.4);
+}
+
+.primer1-note {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.46);
+  font: 0.68rem/1.45 Arial, sans-serif;
+}
+
+.primer1-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.primer1-form label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.primer1-form input {
+  width: 100%;
+  height: 52px;
+  margin-bottom: 14px;
+  padding: 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 4px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: 0.92rem Arial, sans-serif;
+  transition: border-color 250ms ease, background 250ms ease, box-shadow 250ms ease;
+}
+
+.primer1-form input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.primer1-form input:focus-visible {
+  border-color: #e51b2b;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(229, 27, 43, 0.12);
+}
+
+.is-login .primer1-form input:focus-visible {
+  border-color: #e7c147;
+  box-shadow: 0 0 0 3px rgba(231, 193, 71, 0.13);
+}
+
+.primer1-feedback {
+  display: block;
+  margin: -3px 0 4px;
+  color: rgba(255, 220, 160, 0.9);
+  font: 0.74rem/1.4 Arial, sans-serif;
+}
+
+.primer1-submit {
+  min-height: 52px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 4px;
+  background: #d91528;
+  color: #fff;
+  cursor: pointer;
+  font: 700 0.72rem Arial, sans-serif;
+  text-transform: uppercase;
+  transition: background 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+
+.primer1-submit:hover,
+.primer1-submit:focus-visible {
+  background: #f02034;
+  box-shadow: 0 12px 28px rgba(217, 21, 40, 0.3);
+  transform: translateY(-2px);
+}
+
+.is-login .primer1-submit {
+  background: #b98c15;
+  color: #090909;
+}
+
+.is-login .primer1-submit:hover,
+.is-login .primer1-submit:focus-visible {
+  background: #e7c147;
+  box-shadow: 0 12px 28px rgba(231, 193, 71, 0.24);
+}
+
+@keyframes primer1-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes primer1-warm-rays {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@media (max-width: 480px) {
+  .primer1-overlay {
+    place-items: start center;
+    padding: 12px;
+  }
+
+  .primer1-card-shell {
+    min-height: 0;
+    margin: auto 0;
+  }
+
+  .primer1-card {
+    min-height: 500px;
+    padding: 34px 26px;
+  }
+
+  .primer1-mode-switch {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primer1-overlay,
+  .primer1-card-shell,
+  .primer1-card-shell::before,
+  .primer1-card-shell.is-login::after,
+  .primer1-close,
+  .primer1-mode-switch button,
+  .primer1-form input,
+  .primer1-submit {
+    animation: none;
+    transition: none;
+  }
+}
